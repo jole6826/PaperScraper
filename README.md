@@ -35,9 +35,11 @@ The publications on [arXiv.org](https://arxiv.org) is sorted by subject (e.g. ma
 
 By default each of the follwing commands will create `/data/reports_{year}_{week}` in the `/PaperScraper/` folder. It uses the current year and week as the script only searches the last week's papers.
 
-Within the reports folder you can find the output HTML file `arxiv_{subject}_{field}_{year}_{week}.html`
+Within the reports folder you can find the output HTML file `arxiv_{subject}_{field}_{year}_{week}.html` that contains a table with the **title** as well as links to the **abstract** and **PDF**.
 
 #### Basic usage
+
+---
 
 FInd all papers in a subject containing a keyword.
 
@@ -50,6 +52,8 @@ python main.py -s cs -k intelligence
 
 #### Subject-field combination
 
+---
+
 Find all papers in a field of a subject containing a keyword.
 
 
@@ -61,6 +65,8 @@ python main.py -s cs -f ai -k intelligence
 ```
 
 #### Multiple keywords and modes
+
+---
 
 It is also possible to give multiple keywords. 
 
@@ -81,6 +87,8 @@ python main.py --s cs --m all --k deep learning  # using mode=all
 
 #### Custom output path
 
+--- 
+
 The output path can be adjusted to a custom directory using the `--output_path` or `-o` flag.
 
 ```bash
@@ -93,7 +101,17 @@ python main.py -s cs -f ai -o /path/to/data -k deep learning # using default mod
 
 #### Regular Expressions 
 
+---
+
 Mode can also be **regex** in which case the keyword will be interpreted as a [Regular Expression](https://docs.python.org/3/howto/regex.html).
 
 **Note:** If regular expression is used, there can only be **one** keyword, i.e. the regular expression.
+
+#### Automating and custom name
+
+--- 
+
+On most platforms you can perform tasks at a regular interval. This script is best run once a week with a number of settings, to keep up-to-date on all your interests. 
+
+In the case that you want to search the same subject/field combination for different keywords/modes, you can add a custom `name` to the output file with `--name custom_name`.
 
