@@ -5,8 +5,22 @@
 
 Recently the trend of pre-print servers has developed as a way to share research results quickly. Pages like [arXiv.org](https://arxiv.org) offer a wide variety of subjects and fields to roam. 
 
-Most researchers or students do not have the time to look through every possible page to keep up-to-date. This is why I started developing this tool. The goal is to have a simple, automated way of keeping track of new papers (pre-prints) of a field one might be interested in. 
+Most researchers or students do not have the time to look through every possible page to keep up-to-date. This is why I started developing this tool. The goal is to have a simple, automated way of keeping track of new papers (pre-prints) of a field one might be interested in.
 
+There is a bunch of similar projects out there ([Daily arXiv](http://dailyarxiv.com/), [ArXiv Sanity Preserver](http://www.arxiv-sanity.com/)) helping you to search paper. 
+
+My tool on the other hand is supposed to automate the process of finding papers that might be interesting and saving the time of going online and actively searching. I see it as an addition to the above tools, not a replacement. 
+
+* [Installation](#install)
+* [Getting Started](#getStarted)
+  * [Basic Usage](#basic)
+  * [Subject-field combination](#subjectField)
+  * [Multiple keywords and modes](#keywords)
+  * [Custom output path](#outputPath)
+  * [Automating and custom name](#name)
+  * [Regular Expressions](#regex)
+
+<a id='install'></a>
 ### Installation 
 
 ---
@@ -17,12 +31,13 @@ Most researchers or students do not have the time to look through every possible
 conda install pandas lxml
 ```
 
-When available simply clone the repo and get started. 
+When installed simply clone the repo and get started. 
 
 ```bash
 git clone https://github.com/jole6826/PaperScraper.git
 ```
 
+<a id='getStarted'></a>
 ### Getting started
 
 ---
@@ -31,12 +46,13 @@ PaperScraper is a command line tool (for now) that searches the latest papers in
 
 Run `python main.py --help` for details.
 
-The publications on [arXiv.org](https://arxiv.org) is sorted by subject (e.g. maths, computer science, ...) and fields within a subject (e.g. probability, artificial intelligence, ...). Check [arXiv.org](https://arxiv.org) for the entire list (including the shorthands in the URLs).
+The publications on [arXiv.org](https://arxiv.org) is sorted by subject (e.g. maths, computer science, ...) and fields within a subject (e.g. probability, artificial intelligence, ...). Check [Subjects and Fields](SubjectsAndFields.md) for the entire list (including the shorthands in the URLs).
 
 By default each of the follwing commands will create `/data/reports_{year}_{week}` in the `/PaperScraper/` folder. It uses the current year and week as the script only searches the last week's papers.
 
 Within the reports folder you can find the output HTML file `arxiv_{subject}_{field}_{year}_{week}.html` that contains a table with the **title** as well as links to the **abstract** and **PDF**.
 
+<a id='basic'></a>
 #### Basic usage
 
 ---
@@ -50,6 +66,7 @@ python main.py --subject cs --keywords intelligence
 python main.py -s cs -k intelligence
 ```
 
+<a id='subjectField'></a>
 #### Subject-field combination
 
 ---
@@ -64,6 +81,7 @@ python main.py --subject cs --field ai --keywords intelligence
 python main.py -s cs -f ai -k intelligence
 ```
 
+<a id='keywords'></a>
 #### Multiple keywords and modes
 
 ---
@@ -85,6 +103,7 @@ python main.py --s cs --m all --k deep learning  # using mode=all
 
 ```
 
+<a id='outputPath'></a>
 #### Custom output path
 
 --- 
@@ -98,7 +117,16 @@ python main.py --subject cs --field ai --out_path /path/to/data --keywords deep 
 
 python main.py -s cs -f ai -o /path/to/data -k deep learning # using default mode=any
 ```
+<a id='name'></a>
+#### Automating and custom name
 
+--- 
+
+On most platforms you can perform tasks at a regular interval. This script is best run once a week with a number of settings, to keep up-to-date on all your interests. 
+
+In the case that you want to search the same subject/field combination for different keywords/modes, you can add a custom `name` to the output file with `--name custom_name`.
+
+<a id='regex'></a>
 #### Regular Expressions 
 
 ---
@@ -107,11 +135,4 @@ Mode can also be **regex** in which case the keyword will be interpreted as a [R
 
 **Note:** If regular expression is used, there can only be **one** keyword, i.e. the regular expression.
 
-#### Automating and custom name
-
---- 
-
-On most platforms you can perform tasks at a regular interval. This script is best run once a week with a number of settings, to keep up-to-date on all your interests. 
-
-In the case that you want to search the same subject/field combination for different keywords/modes, you can add a custom `name` to the output file with `--name custom_name`.
 
