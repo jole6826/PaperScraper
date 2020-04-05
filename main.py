@@ -24,6 +24,8 @@ def parse_args():
                              'See https://arxiv.org for more.')
     parser.add_argument('-o', '--out_path', action='store', default='./data', type=str,
                         help='Output path. Where to store the tables.')
+    parser.add_argument('-d', '--download', help='Set downloading flag, this can lead to download of a '
+                                                 'large number of papers!', action='store_true')
     parser.add_argument('-n', '--name', action='store', type=str,
                         help='Custom name for a filter, will be added to the file name for '
                              'different searches on the same subject/field combination.')
@@ -37,6 +39,8 @@ def main(args):
     scraper = ArxivScraper(args.subject, args.field, args.keywords, args.mode, args.name)
     scraper.scrape()
     scraper.save_html(args.out_path)
+    if args.download:
+        scraper.save_pdfs(args.out_path)
 
 
 if __name__ == '__main__':
