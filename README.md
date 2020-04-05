@@ -18,6 +18,7 @@ My tool on the other hand is supposed to automate the process of finding papers 
   * [Multiple keywords and modes](#keywords)
   * [Custom output path](#outputPath)
   * [Automating and custom name](#name)
+  * [Downloading PDFs](#download)
   * [Regular Expressions](#regex)
 
 <a id='install'></a>
@@ -125,6 +126,18 @@ python main.py -s cs -f ai -o /path/to/data -k deep learning # using default mod
 On most platforms you can perform tasks at a regular interval. This script is best run once a week with a number of settings, to keep up-to-date on all your interests. 
 
 In the case that you want to search the same subject/field combination for different keywords/modes, you can add a custom `name` to the output file with `--name custom_name`.
+
+<a id='download'></a>
+#### Downloading PDFs
+
+--- 
+
+Using the `--download` or `-d` flag it is possible to download the found papers right away. 
+Papers are only downloaded if there is not already a file with the same name in the output directory.
+
+**Be careful, this could cause a large number of papers to be downloaded at once.**
+
+The files will be stored in a subfolder of the output path similar to the reports folder.
 
 <a id='regex'></a>
 #### Regular Expressions 

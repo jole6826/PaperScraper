@@ -1,6 +1,7 @@
 import datetime
 import sys
 import warnings
+from urllib.request import urlretrieve
 
 from lxml import html
 import requests
@@ -8,6 +9,14 @@ import os
 import re
 
 import pandas as pd
+from tqdm import tqdm
+
+
+def slugify(title):
+    # Got this function from https://github.com/lukasschwab/arxiv.py/blob/master/arxiv/arxiv.py
+    # Remove special characters from object title
+    filename = '_'.join(re.findall(r'\w+', title))
+    return filename
 
 
 class Scraper:
@@ -47,6 +56,27 @@ class Scraper:
         else:
             print('\tNONE')
 
+    def save_pdfs(self, out_path):
+        if len(self.data) > 0:
+            if self.name:
+                folder = f"{self.prefix}_{self.subject}_{self.field}_{self.name}"
+            else:
+                folder = f"{self.prefix}_{self.subject}_{self.field}"
+            path = os.path.join(out_path, f"pdfs_{self.year}_{self.week}", folder)
+            print(f'\nDownloading PDFs to \n\t{path}:\n')
+            os.makedirs(path, exist_ok=True)
+
+            # Load and save the collected pdfs in data:
+            for paper in tqdm(self.data):
+                url = paper['pdf'] + '.pdf'
+                name = slugify(paper['title']) + '.pdf'
+
+                out_file = os.path.join(path, name)
+                if not os.path.exists(out_file):
+                    urlretrieve(url, out_file)
+        else:
+            print(' ')
+
     def print_welcome_mssg(self, n_entries):
         print(f'\nWelcome to the arXiv paper scraper. \n\n'
               f'(c) Johann Lembach, 2020\n\n')
@@ -59,7 +89,7 @@ class Scraper:
 
 class ArxivScraper(Scraper):
     def __init__(self, subject, field, keywords, mode, name=None):
-        super().__init__('https://arxiv.org', subject, field, keywords, mode, name)
+        super().__init__('https://export.arxiv.org', subject, field, keywords, mode, name)
         self.prefix = 'arxiv'
 
     def scrape(self):
