@@ -136,7 +136,8 @@ Using the `--download` or `-d` flag it is possible to download the found papers 
 Papers are only downloaded if there is not already a file with the same name in the output directory.
 
 **Be careful, this could cause a large number of papers to be downloaded at once.**
-See [https://arxiv.org/help/robots](Robots) and [https://arxiv.org/help/bulk_data](Bulk Data)
+
+See [Robots](https://arxiv.org/help/robots) and [Bulk Download](https://arxiv.org/help/bulk_data)
 for more information! 
 
 The files will be stored in a subfolder of the output path similar to the reports folder.
